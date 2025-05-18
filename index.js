@@ -1,4 +1,3 @@
-// Create stars
 function createStars() {
     const starsContainer = document.getElementById('stars');
     const starCount = 100;
@@ -7,7 +6,6 @@ function createStars() {
         const star = document.createElement('div');
         star.classList.add('star');
         
-        // Random properties
         const size = Math.random() * 3;
         const x = Math.random() * 100;
         const y = Math.random() * 100;
@@ -25,7 +23,7 @@ function createStars() {
     }
 }
 
-// Create 3D parallax effect
+
 function parallaxEffect(e) {
     const xPos = (window.innerWidth / 2 - e.clientX) / 50;
     const yPos = (window.innerHeight / 2 - e.clientY) / 50;
@@ -37,7 +35,7 @@ function parallaxEffect(e) {
         `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
 }
 
-// Navbar scroll effect
+
 function navbarScroll() {
     const navbar = document.getElementById('navbar');
     if (window.scrollY > 100) {
@@ -47,7 +45,7 @@ function navbarScroll() {
     }
 }
 
-// Rotating text functionality
+
 let TxtRotate = function(el, toRotate, period) {
     this.toRotate = toRotate;
     this.el = el;
@@ -91,19 +89,18 @@ TxtRotate.prototype.tick = function() {
     }, delta);
 };
 
-// Initialize everything
+
 document.addEventListener('DOMContentLoaded', () => {
     createStars();
     
-    // Mouse move effects
     document.addEventListener('mousemove', (e) => {
         parallaxEffect(e);
     });
 
-    // Scroll event for navbar
+
     window.addEventListener('scroll', navbarScroll);
 
-    // Mobile gyroscope effect
+
     window.addEventListener('deviceorientation', function(e) {
         if (e.beta && e.gamma) {
             const xPos = e.gamma / 5;
@@ -117,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize rotating text
+
     let elements = document.getElementsByClassName('txt-rotate');
     for (let i = 0; i < elements.length; i++) {
         let toRotate = elements[i].getAttribute('data-rotate');
