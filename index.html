@@ -4,33 +4,460 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evadion</title>
-
-    <link rel="icon" href="/logo/favicon.png" type="image/png">
-    <link rel="mask-icon" href="/logo/favicon.png" color="#5a44ff">
-
-    <link rel="shortcut icon" href="/logo/favicon.ico" type="image/x-icon">
-
+    <link rel="icon" href="/logo/evadion.jpeg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .hero footer {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff, #5a44ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+       
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow-x: hidden;
+            background: #0a0a14;
+            position: fixed;
+            perspective: 1000px;
+            color: #fff;
+        }
 
-    <link rel="stylesheet" href="index.css">
+        .gradient-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at 50% 70%,
+                rgba(90, 68, 255, 0.6) 0%,
+                rgba(40, 30, 120, 0.3) 30%,
+                rgba(15, 15, 40, 0.1) 60%,
+                rgba(10, 10, 20, 0) 80%
+            );
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            animation: pulse 8s ease-in-out infinite;
+            z-index: -10;
+        }
+
+        .depth-layer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 30% 40%, rgba(80, 60, 255, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(100, 80, 255, 0.08) 0%, transparent 40%);
+            filter: blur(40px);
+            opacity: 0;
+            animation: depthPulse 12s ease-in-out infinite;
+            z-index: -9;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 150px 60px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            z-index: -7;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+                filter: blur(30px) brightness(0.8);
+                transform: translateZ(-20px) scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(20px) brightness(1.2);
+                transform: translateZ(0) scale(1);
+            }
+        }
+
+        @keyframes depthPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateZ(-50px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateZ(30px);
+            }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            background-color: rgba(15, 15, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(90, 68, 255, 0.2);
+        }
+
+        .nav-scrolled {
+            padding: 1rem 8%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            background-color: rgba(15, 15, 40, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #5a44ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 40px;
+            margin-right: 0.75rem;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #5a44ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #5a44ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 8%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+       .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff, #5a44ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #5a44ff;
+            font-weight: 700;
+            -webkit-text-fill-color: #5a44ff;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #5a44ff, #7a64ff);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.6rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .cta-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(3px);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.8s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(90, 68, 255, 0.3);
+        }
+
+        .cta-button:hover::before {
+            transform: scale(15);
+        }
+
+        .secondary-button {
+            background: transparent;
+            border: 2px solid #5a44ff;
+            color: #fff;
+            padding: 0.8rem 1.6rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .secondary-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .secondary-button:hover i {
+            transform: translateX(3px);
+        }
+
+        .secondary-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .secondary-button:hover {
+            background: rgba(90, 68, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .secondary-button:hover::before {
+            left: 100%;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(90, 68, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: #5a44ff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(10, 10, 20, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(90, 68, 255, 0.3);
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background: rgba(10, 10, 20, 0.9);
+            border-top: 1px solid rgba(90, 68, 255, 0.3);
+            border-left: 1px solid rgba(90, 68, 255, 0.3);
+        }
+
+        .has-tooltip {
+            position: relative;
+        }
+
+        .has-tooltip:hover .tooltip {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+            bottom: -45px;
+        }
+
+        .txt-rotate > .wrap {
+            border-right: 0.08em solid #666;
+        }
+
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-
     <div class="gradient-bg"></div>
     <div class="depth-layer"></div>
     <div class="stars" id="stars"></div>
     <div class="vignette"></div>
 
-
     <nav id="navbar">
-        <a href="/" class="logo">
-            <img src="/logo/evadion.png" alt="Evadion Logo"> Evadion
+        <a href="/" class="logo" style="text-decoration: none;">
+            <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
         </a>
         <div class="nav-links">
             <a class="nav-link has-tooltip" href="/engine">
                 PRO_Y
                 <span class="tooltip">Proxy</span>
-            </a>
             <a href="/movies" class="nav-link has-tooltip">
                 TV
                 <span class="tooltip">Movies + Shows</span>
@@ -53,35 +480,158 @@
                 <i class="bi bi-instagram"></i>
                 <span class="tooltip">Instagram</span>
             </a>
-            <a href="mailto:contact@evadion.com" class="cta-button">
+            <a href="mailto:contact.mkykg@gmail.com" class="cta-button" id="getStartedBtn">
                 Email
                 <i class="bi bi-arrow-right"></i>
             </a>
         </div>
     </nav>
 
-
     <section class="hero">
         <div class="hero-content">
             <h1>Evadion <span class="highlight">Digital v1</span></h1>
             <p>
-                <span class="txt-rotate" data-period="2000" data-rotate='[ "From gamers.", "By gamers.", "To gamers.", "For gamers." ]'></span>
+                <span
+                    class="txt-rotate"
+                    data-period="2000"
+                    data-rotate='[ "From gamers.", "By gamers.", "to gamers.", "For gamers." ]'
+                ></span>
             </p>
             <div class="hero-buttons">
-                <a href="/apk" class="cta-button">
+                <a href="/apk" class="cta-button" id="exploreBtn">
                     Apps
                     <i class="bi bi-grid-3x3-gap-fill"></i>
                 </a>
-                <a href="/gms" class="secondary-button">
+                <a class="secondary-button" href="/gms" id="learnMoreBtn">
                     Games
                     <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
         </div>
-        <footer>&copy; 2025 Evadion. All rights reserved.</footer>
+            <footer>&copy; 2025 Evadion. All right reserved.</footer>
     </section>
 
+    <script>
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = 2 + Math.random() * 3;
+                const delay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
 
-    <script src="index.js"></script>
+        function parallaxEffect(e) {
+            const xPos = (window.innerWidth / 2 - e.clientX) / 50;
+            const yPos = (window.innerHeight / 2 - e.clientY) / 50;
+
+            document.querySelector('.gradient-bg').style.transform =
+                `translateZ(0) rotateX(${yPos}deg) rotateY(${-xPos}deg)`;
+
+            document.querySelector('.depth-layer').style.transform =
+                `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
+        }
+
+        function navbarScroll() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        }
+
+        let TxtRotate = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+
+        TxtRotate.prototype.tick = function() {
+            let i = this.loopNum % this.toRotate.length;
+            let fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+            let that = this;
+            let delta = 300 - Math.random() * 100;
+
+            if (this.isDeleting) {
+                delta /= 2;
+            }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+
+            setTimeout(function() {
+                that.tick();
+            }, delta);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            
+            document.addEventListener('mousemove', (e) => {
+                parallaxEffect(e);
+            });
+
+            window.addEventListener('scroll', navbarScroll);
+
+           
+            window.addEventListener('deviceorientation', function(e) {
+                if (e.beta && e.gamma) {
+                    const xPos = e.gamma / 5;
+                    const yPos = e.beta / 5;
+
+                    document.querySelector('.gradient-bg').style.transform =
+                        `translateZ(0) rotateX(${yPos}deg) rotateY(${-xPos}deg)`;
+
+                    document.querySelector('.depth-layer').style.transform =
+                        `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
+                }
+            });
+
+            let elements = document.getElementsByClassName('txt-rotate');
+            for (let i = 0; i < elements.length; i++) {
+                let toRotate = elements[i].getAttribute('data-rotate');
+                let period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                    new TxtRotate(elements[i], JSON.parse(toRotate), period);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
