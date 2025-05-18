@@ -1,3 +1,4 @@
+
 function createStars() {
     const starsContainer = document.getElementById('stars');
     const starCount = 100;
@@ -12,115 +13,99 @@ function createStars() {
         const duration = 2 + Math.random() * 3;
         const delay = Math.random() * 5;
         
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.left = `${x}%`;
-        star.style.top = `${y}%`;
-        star.style.setProperty('--duration', `${duration}s`);
-        star.style.animationDelay = `${delay}s`;
+        star.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}%;
+            top: ${y}%;
+            --duration: ${duration}s;
+            animation-delay: ${delay}s;
+        `;
         
         starsContainer.appendChild(star);
     }
 }
 
-
 function parallaxEffect(e) {
     const xPos = (window.innerWidth / 2 - e.clientX) / 50;
     const yPos = (window.innerHeight / 2 - e.clientY) / 50;
 
-    document.querySelector('.gradient-bg').style.transform =
+    document.querySelector('.gradient-bg').style.transform = 
         `translateZ(0) rotateX(${yPos}deg) rotateY(${-xPos}deg)`;
 
-    document.querySelector('.depth-layer').style.transform =
+    document.querySelector('.depth-layer').style.transform = 
         `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
 }
 
-
 function navbarScroll() {
     const navbar = document.getElementById('navbar');
-    if (window.scrollY > 100) {
-        navbar.classList.add('nav-scrolled');
-    } else {
-        navbar.classList.remove('nav-scrolled');
-    }
+    navbar.classList.toggle('nav-scrolled', window.scrollY > 100);
 }
 
-
-let TxtRotate = function(el, toRotate, period) {
-    this.toRotate = toRotate;
-    this.el = el;
-    this.loopNum = 0;
-    this.period = parseInt(period, 10) || 2000;
-    this.txt = '';
-    this.tick();
-    this.isDeleting = false;
-};
-
-TxtRotate.prototype.tick = function() {
-    let i = this.loopNum % this.toRotate.length;
-    let fullTxt = this.toRotate[i];
-
-    if (this.isDeleting) {
-        this.txt = fullTxt.substring(0, this.txt.length - 1);
-    } else {
-        this.txt = fullTxt.substring(0, this.txt.length + 1);
-    }
-
-    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
-
-    let that = this;
-    let delta = 300 - Math.random() * 100;
-
-    if (this.isDeleting) {
-        delta /= 2;
-    }
-
-    if (!this.isDeleting && this.txt === fullTxt) {
-        delta = this.period;
-        this.isDeleting = true;
-    } else if (this.isDeleting && this.txt === '') {
+class TextRotator {
+    constructor(el, toRotate, period) {
+        this.el = el;
+        this.toRotate = toRotate;
+        this.period = parseInt(period, 10) || 2000;
+        this.loopNum = 0;
+        this.txt = '';
         this.isDeleting = false;
-        this.loopNum++;
-        delta = 500;
+        this.tick();
     }
 
-    setTimeout(function() {
-        that.tick();
-    }, delta);
-};
+    tick() {
+        const i = this.loopNum % this.toRotate.length;
+        const fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = `<span class="wrap">${this.txt}</span>`;
+
+        let speed = 300 - Math.random() * 100;
+        if (this.isDeleting) speed /= 2;
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            speed = this.period;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            speed = 500;
+        }
+
+        setTimeout(() => this.tick(), speed);
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
     createStars();
     
-    document.addEventListener('mousemove', (e) => {
-        parallaxEffect(e);
-    });
-
-
+    document.addEventListener('mousemove', parallaxEffect);
     window.addEventListener('scroll', navbarScroll);
+    
+
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', (e) => {
+            if (e.beta && e.gamma) {
+                parallaxEffect({
+                    clientX: window.innerWidth / 2 - (e.gamma * 5),
+                    clientY: window.innerHeight / 2 - (e.beta * 5)
+                });
+            }
+        });
+    }
 
 
-    window.addEventListener('deviceorientation', function(e) {
-        if (e.beta && e.gamma) {
-            const xPos = e.gamma / 5;
-            const yPos = e.beta / 5;
-
-            document.querySelector('.gradient-bg').style.transform =
-                `translateZ(0) rotateX(${yPos}deg) rotateY(${-xPos}deg)`;
-
-            document.querySelector('.depth-layer').style.transform =
-                `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
+    document.querySelectorAll('.txt-rotate').forEach(el => {
+        const toRotate = el.getAttribute('data-rotate');
+        const period = el.getAttribute('data-period');
+        if (toRotate) {
+            new TextRotator(el, JSON.parse(toRotate), period);
         }
     });
-
-
-    let elements = document.getElementsByClassName('txt-rotate');
-    for (let i = 0; i < elements.length; i++) {
-        let toRotate = elements[i].getAttribute('data-rotate');
-        let period = elements[i].getAttribute('data-period');
-        if (toRotate) {
-            new TxtRotate(elements[i], JSON.parse(toRotate), period);
-        }
-    }
 });
