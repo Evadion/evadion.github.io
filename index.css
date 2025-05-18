@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -5,22 +6,13 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.hero footer {
-    font-size: 0.8rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    background: linear-gradient(135deg, #fff, #5a44ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
+
+link[rel="icon"],
+link[rel="mask-icon"] {
+    border-radius: 50%;
+    overflow: hidden;
 }
+
 
 body {
     width: 100vw;
@@ -92,15 +84,10 @@ body {
     opacity: 0;
 }
 
+
 @keyframes twinkle {
-    0%, 100% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1);
-    }
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes pulse {
@@ -117,14 +104,8 @@ body {
 }
 
 @keyframes depthPulse {
-    0%, 100% {
-        opacity: 0.3;
-        transform: translateZ(-50px);
-    }
-    50% {
-        opacity: 0.8;
-        transform: translateZ(30px);
-    }
+    0%, 100% { opacity: 0.3; transform: translateZ(-50px); }
+    50% { opacity: 0.8; transform: translateZ(30px); }
 }
 
 
@@ -259,10 +240,8 @@ nav {
     justify-content: center;
 }
 
-.cta-button {
-    background: linear-gradient(135deg, #5a44ff, #7a64ff);
-    color: white;
-    border: none;
+
+.cta-button, .secondary-button {
     padding: 0.8rem 1.6rem;
     border-radius: 30px;
     font-weight: 600;
@@ -276,166 +255,40 @@ nav {
     gap: 0.5rem;
 }
 
-.cta-button i {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-.cta-button:hover i {
-    transform: translateX(3px);
-}
-
-.cta-button::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.8s ease;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(90, 68, 255, 0.3);
-}
-
-.cta-button:hover::before {
-    transform: scale(15);
+.cta-button {
+    background: linear-gradient(135deg, #5a44ff, #7a64ff);
+    color: white;
+    border: none;
 }
 
 .secondary-button {
     background: transparent;
     border: 2px solid #5a44ff;
     color: #fff;
-    padding: 0.8rem 1.6rem;
-    border-radius: 30px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
 }
 
-.secondary-button i {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-.secondary-button:hover i {
-    transform: translateX(3px);
-}
-
-.secondary-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: all 0.6s ease;
-}
-
-.secondary-button:hover {
-    background: rgba(90, 68, 255, 0.1);
+.cta-button:hover, .secondary-button:hover {
     transform: translateY(-3px);
 }
 
-.secondary-button:hover::before {
-    left: 100%;
-}
 
-.social-link {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(90, 68, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.social-link:hover {
-    background: #5a44ff;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
-}
-
-/* Tooltip Styles */
-.tooltip {
-    position: absolute;
-    background: rgba(10, 10, 20, 0.9);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+.hero footer {
     font-size: 0.8rem;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%) scale(0);
-    opacity: 0;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    z-index: 100;
-    white-space: nowrap;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(90, 68, 255, 0.3);
+    font-weight: 700;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(135deg, #fff, #5a44ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.tooltip::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background: rgba(10, 10, 20, 0.9);
-    border-top: 1px solid rgba(90, 68, 255, 0.3);
-    border-left: 1px solid rgba(90, 68, 255, 0.3);
-}
-
-.has-tooltip {
-    position: relative;
-}
-
-.has-tooltip:hover .tooltip {
-    transform: translateX(-50%) scale(1);
-    opacity: 1;
-    bottom: -45px;
-}
-
-
-.txt-rotate > .wrap {
-    border-right: 0.08em solid #666;
-}
 
 @media screen and (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-links {
-        display: none;
-    }
+    .hero h1 { font-size: 2.5rem; }
+    .hero p { font-size: 1rem; }
+    .hero-buttons { flex-direction: column; }
+    .nav-links { display: none; }
 }
