@@ -73,7 +73,7 @@ body {
     z-index: -7;
 }
 
-/* Stars */
+
 .stars {
     position: fixed;
     top: 0;
@@ -127,7 +127,7 @@ body {
     }
 }
 
-/* Navbar Styling */
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -212,7 +212,7 @@ nav {
     align-items: center;
 }
 
-/* Hero Section */
+
 .hero {
     height: 100vh;
     display: flex;
@@ -416,7 +416,7 @@ nav {
     bottom: -45px;
 }
 
-/* Rotating Text Styles */
+
 .txt-rotate > .wrap {
     border-right: 0.08em solid #666;
 }
