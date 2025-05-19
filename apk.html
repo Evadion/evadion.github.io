@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apps | Evadion</title>
+    <link rel="icon" href="/logo/evadion.jpeg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         * {
@@ -64,7 +65,6 @@
             z-index: -7;
         }
 
- 
         .stars {
             position: fixed;
             top: 0;
@@ -118,7 +118,7 @@
             }
         }
 
-         nav {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -153,11 +153,12 @@
             text-decoration: none;
         }
 
-        .logo i {
-            font-size: 1.8rem;
+        .logo img {
+            height: 40px;
+            width: 40px;
             margin-right: 0.75rem;
-            color: #5a44ff;
-            -webkit-text-fill-color: #5a44ff;
+            border-radius: 50%;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -216,6 +217,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .cta-button i {
@@ -269,7 +271,6 @@
             box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
         }
 
- 
         .tooltip {
             position: absolute;
             background: rgba(10, 10, 20, 0.9);
@@ -312,15 +313,13 @@
             bottom: -45px;
         }
 
-
         .apps-container {
             padding: 180px 8% 60px;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
-            height: 100vh;
-            overflow-y: auto;
+            min-height: 100vh;
         }
 
         .apps-title {
@@ -422,16 +421,14 @@
     </style>
 </head>
 <body>
-
     <div class="gradient-bg"></div>
     <div class="depth-layer"></div>
     <div class="stars" id="stars"></div>
     <div class="vignette"></div>
 
-
     <nav id="navbar">
         <a href="/" class="logo" style="text-decoration: none;">
-             <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
+            <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
         </a>
         <div class="nav-links">
             <a class="nav-link has-tooltip" href="/engine">
@@ -464,13 +461,12 @@
                 <i class="bi bi-instagram"></i>
                 <span class="tooltip">Instagram</span>
             </a>
-            <a href="mailto:contact.mkykg@gmail.com" class="cta-button" id="getStartedBtn">
+            <a href="mailto:contact.mkykg@gmail.com" class="cta-button">
                 Email
                 <i class="bi bi-arrow-right"></i>
             </a>
         </div>
     </nav>
-
 
     <div class="apps-container">
         <h1 class="apps-title">Evadion Apps</h1>
@@ -481,85 +477,82 @@
         </div>
         
         <div class="apps-grid">
-
-            <div class="app-card" onclick="window.location.href='/apps/tiktok'">
-                <i class="bi bi-tiktok app-icon"></i>
-                <div class="app-name">TikTok</div>
-            </div>
-            
-            <div class="app-card" onclick="window.location.href='/apps/discord'">
+            <div class="app-card" onclick="window.location.href='/apk/discord'">
                 <i class="bi bi-discord app-icon"></i>
                 <div class="app-name">Discord</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/snapchat'">
+            <div class="app-card" onclick="window.location.href='/example'">
+                <i class="bi bi-tiktok app-icon"></i>
+                <div class="app-name">TikTok</div>
+            </div>
+            
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-snapchat app-icon"></i>
                 <div class="app-name">Snapchat</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/twitter'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-twitter-x app-icon"></i>
                 <div class="app-name">Twitter</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/instagram'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-instagram app-icon"></i>
                 <div class="app-name">Instagram</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/facebook'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-facebook app-icon"></i>
                 <div class="app-name">Facebook</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/reddit'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-reddit app-icon"></i>
                 <div class="app-name">Reddit</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/linkedin'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-linkedin app-icon"></i>
                 <div class="app-name">LinkedIn</div>
             </div>
             
- 
-            <div class="app-card" onclick="window.location.href='/apps/vscode'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-code-square app-icon"></i>
                 <div class="app-name">VS Code</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/github'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-github app-icon"></i>
                 <div class="app-name">GitHub</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/gitlab'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-git app-icon"></i>
                 <div class="app-name">GitLab</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/stackoverflow'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-stack-overflow app-icon"></i>
                 <div class="app-name">StackOverflow</div>
             </div>
             
- 
-            <div class="app-card" onclick="window.location.href='/apps/youtube'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-youtube app-icon"></i>
                 <div class="app-name">YouTube</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/netflix'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-film app-icon"></i>
                 <div class="app-name">Netflix</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/spotify'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-spotify app-icon"></i>
                 <div class="app-name">Spotify</div>
             </div>
             
-            <div class="app-card" onclick="window.location.href='/apps/whatsapp'">
+            <div class="app-card" onclick="window.location.href='/example'">
                 <i class="bi bi-whatsapp app-icon"></i>
                 <div class="app-name">WhatsApp</div>
             </div>
@@ -567,7 +560,6 @@
     </div>
 
     <script>
- 
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 100;
@@ -576,7 +568,6 @@
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
- 
                 const size = Math.random() * 3;
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
@@ -594,7 +585,6 @@
             }
         }
 
- 
         function parallaxEffect(e) {
             const xPos = (window.innerWidth / 2 - e.clientX) / 50;
             const yPos = (window.innerHeight / 2 - e.clientY) / 50;
@@ -606,7 +596,6 @@
                 `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
         }
 
- 
         function navbarScroll() {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 100) {
@@ -616,7 +605,6 @@
             }
         }
 
- 
         function setupSearch() {
             const searchInput = document.querySelector('.search-input');
             const appCards = document.querySelectorAll('.app-card');
@@ -637,31 +625,18 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
-            
- 
-            document.addEventListener('mousemove', (e) => {
-                parallaxEffect(e);
-            });
-
- 
+            document.addEventListener('mousemove', parallaxEffect);
             window.addEventListener('scroll', navbarScroll);
+            setupSearch();
 
- 
             window.addEventListener('deviceorientation', function(e) {
                 if (e.beta && e.gamma) {
-                    const xPos = e.gamma / 5;
-                    const yPos = e.beta / 5;
-
-                    document.querySelector('.gradient-bg').style.transform =
-                        `translateZ(0) rotateX(${yPos}deg) rotateY(${-xPos}deg)`;
-
-                    document.querySelector('.depth-layer').style.transform =
-                        `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
+                    parallaxEffect({
+                        clientX: window.innerWidth / 2 - (e.gamma * 5),
+                        clientY: window.innerHeight / 2 - (e.beta * 5)
+                    });
                 }
             });
-
- 
-            setupSearch();
         });
     </script>
 </body>
