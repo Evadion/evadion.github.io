@@ -15,10 +15,10 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-html {
-    overflow: hidden;
-    height: 100%;
-}
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
         body {
             width: 100vw;
             height: 100vh;
@@ -69,7 +69,6 @@ html {
             pointer-events: none;
             z-index: -7;
         }
-
 
         .stars {
             position: fixed;
@@ -123,7 +122,6 @@ html {
                 transform: translateZ(30px);
             }
         }
-
 
         nav {
             display: flex;
@@ -271,7 +269,21 @@ html {
             text-decoration: none;
         }
 
-        .social-link:hover {
+        .github-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(90, 68, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover, .github-link:hover {
             background: #5a44ff;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
@@ -333,7 +345,6 @@ html {
     <div class="stars" id="stars"></div>
     <div class="vignette"></div>
 
-
     <nav id="navbar">
         <a href="/" class="logo" style="text-decoration: none;">
             <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
@@ -361,6 +372,10 @@ html {
             </a>
         </div>
         <div class="nav-buttons">
+            <a href="https://github.com/Evadion/evadion.github.io" class="github-link has-tooltip" target="_blank">
+                <i class="bi bi-github"></i>
+                <span class="tooltip">GitHub</span>
+            </a>
             <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
                 <i class="bi bi-discord"></i>
                 <span class="tooltip">Discord</span>
