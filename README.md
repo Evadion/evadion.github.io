@@ -1,8 +1,11 @@
 # Welcome to Evadion
 
 Few information we need for Evadion are :-
+     
       • Join the offical discord server [here](https://dsc.gg/evadion)
+      
       • For games any credits that belong for games will be written inside [here](https://github.com/Evadion/evadion.github.io/tree/main/gms)
+      
       • For any apps that belongs credit will be written here
 
 # Credits
