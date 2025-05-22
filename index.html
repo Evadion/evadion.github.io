@@ -378,6 +378,26 @@
             box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
         }
 
+        .github-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(90, 68, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .github-link:hover {
+            background: #5a44ff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
+        }
+
         .tooltip {
             position: absolute;
             background: rgba(10, 10, 20, 0.9);
@@ -472,10 +492,14 @@
             </a>
         </div>
         <div class="nav-buttons">
-             <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
-                    <i class="bi bi-discord"></i>
-                    <span class="tooltip">Discord</span>
-                </a>
+            <a href="https://github.com/Evadion/evadion.github.io" class="github-link has-tooltip" target="_blank">
+                <i class="bi bi-github"></i>
+                <span class="tooltip">GitHub</span>
+            </a>
+            <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
+                <i class="bi bi-discord"></i>
+                <span class="tooltip">Discord</span>
+            </a>
             <a href="mailto:contact.mkykg@gmail.com" class="cta-button" id="getStartedBtn">
                 Email
                 <i class="bi bi-arrow-right"></i>
