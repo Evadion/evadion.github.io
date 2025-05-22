@@ -5,7 +5,7 @@ Few information we need for Evadion are :-
       - For games any credits that belong for games will be written inside [here](https://github.com/Evadion/evadion.github.io/tree/main/gms/)
       - For any apps that belongs credit will be written here
 
-# Credits
+## Credits
 These are the people that helped us make the entire Evadion
       - Vplaza - made the majority of the home page. Majority source.
       - 🪐 **Galatic** - bought us a domain
