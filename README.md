@@ -16,7 +16,7 @@
 - [@Jupiter's Network](https://testing.factwiki.me/) • Help us get another domain also helped for making a seach engine.
 ## 🔗 Links
 
-- [Evadion](https://evadion.github.io)0
+- [Evadion](https://evadion.github.io)
 - [Evadion](https://evadion.w3spaces.com/)
 
 
