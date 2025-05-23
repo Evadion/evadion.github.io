@@ -1,13 +1,28 @@
+
 # Welcome to Evadion
 
-Few information we need for Evadion are :-
-      - Join the offical discord server [here](https://dsc.gg/evadion)
-      - For games any credits that belong for games will be written inside [here](https://github.com/Evadion/evadion.github.io/tree/main/gms/)
-      - For any apps that belongs credit will be written here
+✨Evadion is where unblocking starts.
+## Contributers
+
+- [@mkykg](https://www.github.com/mkykg) • Only developer of Evadion
+
+
+
 
 ## Credits
-These are the people that helped us make the entire Evadion
-      - Vplaza - made the majority of the home page. Majority source.
-      - 🪐 **Galatic** - bought us a domain
-      - Jupiter's Network - helped us make a search engine and got us free domain
-      - These are the people who have comtributed to Evadion as if right now if we have any contribitors we will list them out here
+
+- [@vplaza](https://vplaza.org/) • Making our majory of the home page
+- [@glanticnetwork](https://galacticnetwork.org/) • Providing us domain
+- [@Jupiter's Network](https://testing.factwiki.me/) • Help us get another domain also helped for making a seach engine.
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://katherineoelsner.com/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/)
+
+
+![Logo](https://evadion.github.io/logo/LOGO-for-Pr0ton-modified.png)
+
+
+## 🚀 About Us
+
+coming soon...
