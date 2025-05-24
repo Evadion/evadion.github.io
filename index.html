@@ -3,21 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Evadion</title>
-    <meta name="description" content="✨Evadion is where unblocking starts!">
+    <title>Evadion Proxy</title>
     
-
+    <meta name="description" content="✨Evadion - Fast, secure web proxy for unblocking content">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://evadion.github.io/">
-    <meta property="og:title" content="Home | Evadion">
-    <meta property="og:description" content="✨Evadion is where unblocking starts!">
+    <meta property="og:title" content="Evadion Proxy">
+    <meta property="og:description" content="✨Evadion - Fast, secure web proxy for unblocking content">
     <meta property="og:image" content="https://evadion.github.io/logo/evadion.jpeg">
-    
-
+    <meta property="og:url" content="">
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://evadion.github.io/">
-    <meta property="twitter:title" content="Home | Evadion">
-    <meta property="twitter:description" content="✨Evadion is where unblocking starts!">
+    <meta property="twitter:title" content="Evadion Proxy">
+    <meta property="twitter:description" content="✨Evadion - Fast, secure web proxy for unblocking content">
     <meta property="twitter:image" content="https://evadion.github.io/logo/evadion.jpeg">
     
     <link rel="icon" href="/logo/evadion.jpeg" type="image/jpeg">
@@ -505,7 +501,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Evadion <span class="highlight">Digital v0.1.3</span></h1>
+            <h1>Evadion <span class="highlight">Digital v0.5.7</span></h1>
             <p>✨Evadion
                 <span
                     class="txt-rotate"
@@ -528,6 +524,29 @@
     </section>
 
     <script>
+
+        function updateMetaTags() {
+            const currentUrl = window.location.href;
+            const pageTitle = document.title || 'Evadion Proxy';
+            const pageDescription = document.querySelector('meta[name="description"]').content || '✨Evadion - Fast, secure web proxy for unblocking content';
+            const logoUrl = 'https://evadion.github.io/logo/evadion.jpeg';
+            
+
+            document.querySelector('meta[property="og:url"]').content = currentUrl;
+            
+
+            document.querySelector('meta[property="og:title"]').content = pageTitle;
+            document.querySelector('meta[property="twitter:title"]').content = pageTitle;
+            
+
+            document.querySelector('meta[property="og:description"]').content = pageDescription;
+            document.querySelector('meta[property="twitter:description"]').content = pageDescription;
+            
+
+            document.querySelector('meta[property="og:image"]').content = logoUrl;
+            document.querySelector('meta[property="twitter:image"]').content = logoUrl;
+        }
+
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 100;
@@ -617,6 +636,7 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
+            updateMetaTags();
             createStars();
             
             document.addEventListener('mousemove', (e) => {
@@ -625,7 +645,6 @@
 
             window.addEventListener('scroll', navbarScroll);
 
-           
             window.addEventListener('deviceorientation', function(e) {
                 if (e.beta && e.gamma) {
                     const xPos = e.gamma / 5;
