@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Evadion</title>
-    
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Home | Evadion" />
-<meta property="og:type" content="v0.1.3" />
-<meta property="og:url" content="https://evadion.github.io/" />
-<meta property="og:image" content="https://evadion.github.io/logo/evadion.jpeg" />
-<meta property="og:description" content="✨Evadion is where unblocking starts! ✨Evadion is where freedom begins! ✨Evadion is where innovation happens! ✨Evadion is where access opens up! ✨Evadion is where the web becomes free!" />
-<meta name="theme-color" content="#7601E3">
-<meta name="orbit:card" content="/logo/evadion.jpeg">
-<meta property="twitter:image" content="https://evadion.github.io/logo/evadion.jpeg">
-    
+    <title>Games | Evadion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Games | Evadion" />
+    <meta property="og:type" content="v0.1.3" />
+    <meta property="og:url" content="https://evadion.github.io/" />
+    <meta property="og:image" content="https://evadion.github.io/logo/evadion.jpeg" />
+    <meta property="og:description" content="✨Evadion is where unblocking starts! ✨Evadion is where freedom begins! ✨Evadion is where innovation happens! ✨Evadion is where access opens up! ✨Evadion is where the web becomes free!" />
+    <meta name="theme-color" content="#7601E3">
+    <meta name="orbit:card" content="/logo/evadion.jpeg">
+    <meta property="twitter:image" content="https://evadion.github.io/logo/evadion.jpeg">
     <link rel="icon" href="/logo/evadion.jpeg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -25,31 +23,19 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .hero footer {
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #fff, #5a44ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
+
+        html {
+            overflow-x: hidden;
+            height: 100%;
         }
-       
+
         body {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            min-height: 100vh;
             overflow-x: hidden;
             background: #0a0a14;
-            position: fixed;
-            perspective: 1000px;
             color: #fff;
+            position: relative;
         }
 
         .gradient-bg {
@@ -67,6 +53,8 @@
             transform: translateZ(0);
             animation: pulse 8s ease-in-out infinite;
             z-index: -10;
+            top: 0;
+            left: 0;
         }
 
         .depth-layer {
@@ -80,6 +68,8 @@
             opacity: 0;
             animation: depthPulse 12s ease-in-out infinite;
             z-index: -9;
+            top: 0;
+            left: 0;
         }
 
         .vignette {
@@ -111,39 +101,11 @@
             opacity: 0;
         }
 
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.6;
-                filter: blur(30px) brightness(0.8);
-                transform: translateZ(-20px) scale(0.9);
-            }
-            50% {
-                opacity: 1;
-                filter: blur(20px) brightness(1.2);
-                transform: translateZ(0) scale(1);
-            }
-        }
-
-        @keyframes depthPulse {
-            0%, 100% {
-                opacity: 0.3;
-                transform: translateZ(-50px);
-            }
-            50% {
-                opacity: 0.8;
-                transform: translateZ(30px);
-            }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            overflow-y: auto;
         }
 
         nav {
@@ -185,8 +147,8 @@
             height: 40px;
             width: 40px;
             margin-right: 0.75rem;
-            object-fit: contain;
             border-radius: 50%;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -230,52 +192,6 @@
             align-items: center;
         }
 
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 8%;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-       .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #fff, #5a44ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-
-        .highlight {
-            color: #5a44ff;
-            font-weight: 700;
-            -webkit-text-fill-color: #5a44ff;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
         .cta-button {
             background: linear-gradient(135deg, #5a44ff, #7a64ff);
             color: white;
@@ -291,6 +207,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .cta-button i {
@@ -322,52 +239,6 @@
 
         .cta-button:hover::before {
             transform: scale(15);
-        }
-
-        .secondary-button {
-            background: transparent;
-            border: 2px solid #5a44ff;
-            color: #fff;
-            padding: 0.8rem 1.6rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .secondary-button i {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .secondary-button:hover i {
-            transform: translateX(3px);
-        }
-
-        .secondary-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.6s ease;
-        }
-
-        .secondary-button:hover {
-            background: rgba(90, 68, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .secondary-button:hover::before {
-            left: 100%;
         }
 
         .social-link {
@@ -432,26 +303,163 @@
             bottom: -45px;
         }
 
-        .txt-rotate > .wrap {
-            border-right: 0.08em solid #666;
+        .games-container {
+            padding: 180px 8% 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .games-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #fff, #5a44ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            border: 1px solid rgba(90, 68, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #5a44ff;
+            box-shadow: 0 0 0 2px rgba(90, 68, 255, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: rgba(15, 15, 40, 0.7);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(90, 68, 255, 0.2);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            background: rgba(90, 68, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(90, 68, 255, 0.2);
+        }
+
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .bi.game-icon {
+            font-size: 3.5rem;
+            color: #5a44ff;
+        }
+
+        .game-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: white;
+            margin-top: 0.5rem;
+        }
+
+        .request-card {
+            background: rgba(90, 68, 255, 0.2);
+            border: 2px dashed rgba(90, 68, 255, 0.5);
+        }
+
+        .request-card:hover {
+            background: rgba(90, 68, 255, 0.3);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+                filter: blur(30px) brightness(0.8);
+                transform: translateZ(-20px) scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(20px) brightness(1.2);
+                transform: translateZ(0) scale(1);
+            }
+        }
+
+        @keyframes depthPulse {
+            0%, 100% { opacity: 0.3; transform: translateZ(-50px); }
+            50% { opacity: 0.8; transform: translateZ(30px); }
         }
 
         @media screen and (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .games-title {
+                font-size: 2rem;
             }
-
-            .hero p {
-                font-size: 1rem;
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
+            
             .nav-links {
                 display: none;
+            }
+            
+            .games-container {
+                padding-top: 140px;
+            }
+            
+            .game-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .bi.game-icon {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -462,147 +470,88 @@
     <div class="stars" id="stars"></div>
     <div class="vignette"></div>
 
-    <nav id="navbar">
-        <a href="/" class="logo" style="text-decoration: none;">
-            <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
-        </a>
-        <div class="nav-links">
-            <a class="nav-link has-tooltip" href="/engine">
-                PROXY
-                <span class="tooltip">Search engine</span>
+    <div class="content-wrapper">
+        <nav id="navbar">
+            <a href="/" class="logo" style="text-decoration: none;">
+                <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
             </a>
-            <a href="/movies" class="nav-link has-tooltip">
-                TV
-                <span class="tooltip">Movies + Shows</span>
-            </a>
-            <a class="nav-link has-tooltip" href="/ai">
-                AI
-                <span class="tooltip">AI</span>
-            </a>
-            <a class="nav-link has-tooltip" href="/extras">
-                Extras
-                <span class="tooltip">Extras</span>
-            </a>
-        </div>
-        <div class="nav-buttons">
-            <a href="https://github.com/Evadion/evadion.github.io" class="social-link has-tooltip" target="_blank">
-                <i class="bi bi-github"></i>
-                <span class="tooltip">GitHub</span>
-            </a>
-            <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
-                <i class="bi bi-discord"></i>
-                <span class="tooltip">Discord</span>
-            </a>
-            <a href="mailto:contact.mkykg@gmail.com" class="cta-button" id="getStartedBtn">
-                Email
-                <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Evadion <span class="highlight">Digital v0.1.3</span></h1>
-            <p>✨Evadion
-                <span
-                    class="txt-rotate"
-                    data-period="2000"
-                    data-rotate='[ " is where unblocking starts!", " is where freedom begins!", " is where innovation happens!", " is where access opens up!", " is where the web becomes free!" ]'
-                ></span>
-            </p>
-            <div class="hero-buttons">
-                <a href="/apk" class="cta-button" id="exploreBtn">
-                    Apps
-                    <i class="bi bi-grid-3x3-gap-fill"></i>
+            <div class="nav-links">
+                <a class="nav-link has-tooltip" href="/engine">
+                    PROXY
+                    <span class="tooltip">Search engine</span>
                 </a>
-                <a class="secondary-button" href="/gms" id="learnMoreBtn">
-                    Games
+                <a href="/movies" class="nav-link has-tooltip">
+                    TV
+                    <span class="tooltip">Movies + Shows</span>
+                </a>
+                <a class="nav-link has-tooltip" href="/ai">
+                    AI
+                    <span class="tooltip">AI</span>
+                </a>
+                <a class="nav-link has-tooltip" href="/extras">
+                    Extras
+                    <span class="tooltip">Extras</span>
+                </a>
+            </div>
+            <div class="nav-buttons">
+                <a href="https://github.com/Evadion/evadion.github.io" class="social-link has-tooltip" target="_blank">
+                    <i class="bi bi-github"></i>
+                    <span class="tooltip">GitHub</span>
+                </a>
+                <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
+                    <i class="bi bi-discord"></i>
+                    <span class="tooltip">Discord</span>
+                </a>
+                <a href="mailto:contact.mkykg@gmail.com" class="cta-button">
+                    Email
                     <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
+        </nav>
+
+        <div class="games-container">
+            <h1 class="games-title">Evadion Games</h1>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search games...">
+                <i class="bi bi-search search-icon"></i>
+            </div>
+            
+            <div class="games-grid">
+                <div class="game-card request-card" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScAFVaUpkenEShNz-LjO3EhJoB9rXjHfAD99GEeob3M3f41SQ/viewform?usp=sharing&ouid=118209237225802351429'" target="_blank">
+                    <i class="bi bi-plus-circle game-icon"></i>
+                    <div class="game-name">Request Games</div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='/gms/geodash'">
+                    <img src="/logo/gms/1702661368_Geometrydashlogo.png" alt="Geometry Dash" class="game-icon">
+                    <div class="game-name">Geometry Dash</div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='/gms/minecraft'">
+                    <i class="bi bi-minecart-loaded game-icon"></i>
+                    <div class="game-name">Minecraft</div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='/gms/amongus'">
+                    <i class="bi bi-people-fill game-icon"></i>
+                    <div class="game-name">Among Us</div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='/gms/fortnite'">
+                    <i class="bi bi-joystick game-icon"></i>
+                    <div class="game-name">Fortnite</div>
+                </div>
+                
+                <div class="game-card" onclick="window.location.href='/gms/roblox'">
+                    <i class="bi bi-boxes game-icon"></i>
+                    <div class="game-name">Roblox</div>
+                </div>
+            </div>
         </div>
-        <footer>&copy; 2025 Evadion. All right reserved.</footer>
-    </section>
+    </div>
 
     <script>
-        // Text rotation functionality
-        var TxtRotate = function(el, toRotate, period) {
-            this.toRotate = toRotate;
-            this.el = el;
-            this.loopNum = 0;
-            this.period = parseInt(period, 10) || 2000;
-            this.txt = '';
-            this.tick();
-            this.isDeleting = false;
-        };
-
-        TxtRotate.prototype.tick = function() {
-            var i = this.loopNum % this.toRotate.length;
-            var fullTxt = this.toRotate[i];
-
-            if (this.isDeleting) {
-                this.txt = fullTxt.substring(0, this.txt.length - 1);
-            } else {
-                this.txt = fullTxt.substring(0, this.txt.length + 1);
-            }
-
-            this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
-
-            var that = this;
-            var delta = 100 - Math.random() * 50;
-
-            if (this.isDeleting) { delta /= 2; }
-
-            if (!this.isDeleting && this.txt === fullTxt) {
-                delta = this.period;
-                this.isDeleting = true;
-            } else if (this.isDeleting && this.txt === '') {
-                this.isDeleting = false;
-                this.loopNum++;
-                delta = 500;
-            }
-
-            setTimeout(function() {
-                that.tick();
-            }, delta);
-        };
-
-        // Initialize text rotation
-        window.onload = function() {
-            var elements = document.getElementsByClassName('txt-rotate');
-            for (var i = 0; i < elements.length; i++) {
-                var toRotate = elements[i].getAttribute('data-rotate');
-                var period = elements[i].getAttribute('data-period');
-                if (toRotate) {
-                    new TxtRotate(elements[i], JSON.parse(toRotate), period);
-                }
-            }
-
-            // Other initialization functions
-            updateMetaTags();
-            createStars();
-            
-            // Event listeners
-            document.addEventListener('mousemove', parallaxEffect);
-            window.addEventListener('scroll', navbarScroll);
-            window.addEventListener('deviceorientation', handleDeviceOrientation);
-        };
-
-        function updateMetaTags() {
-            const currentUrl = window.location.href;
-            const pageTitle = document.title || 'Evadion Proxy';
-            const pageDescription = document.querySelector('meta[name="description"]').content || '✨Evadion - Fast, secure web proxy for unblocking content';
-            const logoUrl = 'https://evadion.github.io/logo/evadion.jpeg';
-            
-            document.querySelector('meta[property="og:url"]').content = currentUrl;
-            document.querySelector('meta[property="og:title"]').content = pageTitle;
-            document.querySelector('meta[property="twitter:title"]').content = pageTitle;
-            document.querySelector('meta[property="og:description"]').content = pageDescription;
-            document.querySelector('meta[property="twitter:description"]').content = pageDescription;
-            document.querySelector('meta[property="og:image"]').content = logoUrl;
-            document.querySelector('meta[property="twitter:image"]').content = logoUrl;
-        }
-
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 100;
@@ -648,18 +597,39 @@
             }
         }
 
-        function handleDeviceOrientation(e) {
-            if (e.beta && e.gamma) {
-                const xPos = e.gamma / 5;
-                const yPos = e.beta / 5;
-
-                document.querySelector('.gradient-bg').style.transform =
-                    `translateZ(0) rotateX(${yPos}deg) rotateY(${-xPos}deg)`;
-
-                document.querySelector('.depth-layer').style.transform =
-                    `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
-            }
+        function setupSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const gameCards = document.querySelectorAll('.game-card');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                gameCards.forEach(card => {
+                    const gameName = card.querySelector('.game-name').textContent.toLowerCase();
+                    if (gameName.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            document.addEventListener('mousemove', parallaxEffect);
+            window.addEventListener('scroll', navbarScroll);
+            setupSearch();
+
+            window.addEventListener('deviceorientation', function(e) {
+                if (e.beta && e.gamma) {
+                    parallaxEffect({
+                        clientX: window.innerWidth / 2 - (e.gamma * 5),
+                        clientY: window.innerHeight / 2 - (e.beta * 5)
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
