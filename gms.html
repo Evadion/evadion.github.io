@@ -382,6 +382,15 @@
             color: white;
         }
 
+        .request-card {
+            background: rgba(90, 68, 255, 0.2);
+            border: 2px dashed rgba(90, 68, 255, 0.5);
+        }
+
+        .request-card:hover {
+            background: rgba(90, 68, 255, 0.3);
+        }
+
         @keyframes twinkle {
             0%, 100% { opacity: 0; transform: scale(0.5); }
             50% { opacity: 1; transform: scale(1); }
@@ -482,6 +491,11 @@
             </div>
             
             <div class="games-grid">
+                <div class="game-card request-card" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScAFVaUpkenEShNz-LjO3EhJoB9rXjHfAD99GEeob3M3f41SQ/viewform?usp=sharing&ouid=118209237225802351429'" target="_blank">
+                    <i class="bi bi-plus-circle game-icon"></i>
+                    <div class="game-name">Request Games</div>
+                </div>
+                
                 <div class="game-card" onclick="window.location.href='/gms/geodash'">
                     <i class="bi bi-controller game-icon"></i>
                     <div class="game-name">Geometry Dash</div>
