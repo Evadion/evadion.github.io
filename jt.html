@@ -5,35 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Evadion</title>
     
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Home | Evadion">
-    <meta name="description" content="✨Evadion is where unblocking starts! 
-✨Evadion is where freedom begins! 
-✨Evadion is where innovation happens!
-✨Evadion is where access opens up!
-✨Evadion is where the web becomes free!">
+    <meta property="og:title" content="Home | Evadion" />
+    <meta property="og:type" content="v0.1.3" />
+    <meta property="og:url" content="https://evadion.github.io/" />
+    <meta property="og:image" content="https://evadion.github.io/logo/evadion.jpeg" />
+    <meta property="og:description" content="✨Evadion is where unblocking starts! ✨Evadion is where freedom begins! ✨Evadion is where innovation happens! ✨Evadion is where access opens up! ✨Evadion is where the web becomes free!" />
     <meta name="theme-color" content="#5a44ff">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://evadion.github.io/">
-    <meta property="og:title" content="Home | Evadion">
-    <meta property="og:description" content="✨Evadion is where unblocking starts! 
-✨Evadion is where freedom begins! 
-✨Evadion is where innovation happens!
-✨Evadion is where access opens up!
-✨Evadion is where the web becomes free!">
-    <meta property="og:image" content="https://evadion.github.io/logo/evadion.jpeg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://evadion.github.io/">
-    <meta property="twitter:title" content="Home | Evadion">
-    <meta property="twitter:description" content="✨Evadion is where unblocking starts! 
-✨Evadion is where freedom begins! 
-✨Evadion is where innovation happens!
-✨Evadion is where access opens up!
-✨Evadion is where the web becomes free!">
+    <meta name="orbit:card" content="/logo/evadion.jpeg">
     <meta property="twitter:image" content="https://evadion.github.io/logo/evadion.jpeg">
     
     <link rel="icon" href="/logo/evadion.jpeg" type="image/jpeg">
@@ -389,7 +367,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent;
         }
 
         .hero p {
@@ -597,19 +574,21 @@
     </style>
 </head>
 <body>
+    <!-- Password Modal (always shown by default) -->
     <div class="password-modal" id="passwordModal">
         <div class="modal-content" id="modalContent">
             <h2>Welcome to Evadion</h2>
             <p>Please enter the password to access this site</p>
             <input type="password" class="password-input" id="passwordInput" placeholder="Enter password">
             <button class="submit-btn" id="submitPassword">Submit</button>
-            <p> If you don't know the password join the server <a href="https://dsc.gg/evadion" target="_blank">here</a></p>
+            <p>If you don't know the password join the server <a href="https://dsc.gg/evadion" target="_blank" style="color: #5a44ff; text-decoration: none;">here</a></p>
             <div class="error-message" id="errorMessage">
                 Incorrect password. Please try again or contact the admins.
             </div>
         </div>
     </div>
 
+    <!-- Main Content (blurred by default) -->
     <div id="mainContent" class="blur-content">
         <div class="gradient-bg"></div>
         <div class="depth-layer"></div>
@@ -680,6 +659,7 @@
     </div>
 
     <script>
+        // Password Protection System
         const passwordModal = document.getElementById('passwordModal');
         const modalContent = document.getElementById('modalContent');
         const passwordInput = document.getElementById('passwordInput');
@@ -688,26 +668,40 @@
         const mainContent = document.getElementById('mainContent');
         
         const CORRECT_PASSWORD = "Evadion!";
+        const INACTIVITY_TIMEOUT = 2 * 60 * 1000; // 2 minutes in milliseconds
         
-        const storedPassword = localStorage.getItem('evadion_password');
-        if (storedPassword === CORRECT_PASSWORD) {
-            passwordModal.style.display = 'none';
-            mainContent.classList.remove('blur-content');
+        let inactivityTimer;
+        let isAuthenticated = false;
+        
+        // Initialize - always show password modal on load
+        showPasswordModal();
+        
+        // Show password modal
+        function showPasswordModal() {
+            passwordModal.style.display = 'flex';
+            mainContent.classList.add('blur-content');
+            passwordInput.focus();
+            isAuthenticated = false;
+            resetInactivityTimer();
         }
         
-        submitPassword.addEventListener('click', checkPassword);
-        passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
+        // Hide password modal
+        function hidePasswordModal() {
+            passwordModal.style.display = 'none';
+            mainContent.classList.remove('blur-content');
+            isAuthenticated = true;
+            resetInactivityTimer();
+        }
         
+        // Check password
         function checkPassword() {
             if (passwordInput.value === CORRECT_PASSWORD) {
-                localStorage.setItem('evadion_password', passwordInput.value);
-                passwordModal.style.display = 'none';
-                mainContent.classList.remove('blur-content');
+                hidePasswordModal();
+                modalContent.classList.remove('error');
+                errorMessage.style.display = 'none';
+                passwordInput.value = '';
             } else {
+                // Show error
                 modalContent.classList.add('error');
                 errorMessage.style.display = 'block';
                 passwordInput.value = '';
@@ -715,6 +709,45 @@
             }
         }
         
+        // Reset inactivity timer
+        function resetInactivityTimer() {
+            if (inactivityTimer) {
+                clearTimeout(inactivityTimer);
+            }
+            
+            if (isAuthenticated) {
+                inactivityTimer = setTimeout(() => {
+                    showPasswordModal();
+                }, INACTIVITY_TIMEOUT);
+            }
+        }
+        
+        // Event listeners for password submission
+        submitPassword.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // Track user activity
+        const activityEvents = ['mousemove', 'keydown', 'click', 'scroll'];
+        activityEvents.forEach(event => {
+            document.addEventListener(event, () => {
+                if (isAuthenticated) {
+                    resetInactivityTimer();
+                }
+            });
+        });
+        
+        // Check when tab becomes visible again
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                showPasswordModal();
+            }
+        });
+        
+        // Rotating text animation
         var TxtRotate = function(el, toRotate, period) {
             this.toRotate = toRotate;
             this.el = el;
@@ -756,7 +789,9 @@
             }, delta);
         };
 
+        // Initialize on page load
         window.onload = function() {
+            // Initialize rotating text
             var elements = document.getElementsByClassName('txt-rotate');
             for (var i = 0; i < elements.length; i++) {
                 var toRotate = elements[i].getAttribute('data-rotate');
@@ -766,9 +801,13 @@
                 }
             }
 
+            // Update meta tags
             updateMetaTags();
+            
+            // Create star background
             createStars();
             
+            // Set up event listeners
             document.addEventListener('mousemove', parallaxEffect);
             window.addEventListener('scroll', navbarScroll);
             window.addEventListener('deviceorientation', handleDeviceOrientation);
@@ -777,19 +816,16 @@
         function updateMetaTags() {
             const currentUrl = window.location.href;
             const pageTitle = document.title || 'Evadion Proxy';
-            const description = `✨Evadion is where unblocking starts! 
-✨Evadion is where freedom begins! 
-✨Evadion is where innovation happens!
-✨Evadion is where access opens up!
-✨Evadion is where the web becomes free!`;
+            const pageDescription = document.querySelector('meta[name="description"]').content || '✨Evadion - Fast, secure web proxy for unblocking content';
             const logoUrl = 'https://evadion.github.io/logo/evadion.jpeg';
             
             document.querySelector('meta[property="og:url"]').content = currentUrl;
             document.querySelector('meta[property="og:title"]').content = pageTitle;
             document.querySelector('meta[property="twitter:title"]').content = pageTitle;
-            document.querySelector('meta[property="og:description"]').content = description;
-            document.querySelector('meta[property="twitter:description"]').content = description;
-            document.querySelector('meta[name="description"]').content = description;
+            document.querySelector('meta[property="og:description"]').content = pageDescription;
+            document.querySelector('meta[property="twitter:description"]').content = pageDescription;
+            document.querySelector('meta[property="og:image"]').content = logoUrl;
+            document.querySelector('meta[property="twitter:image"]').content = logoUrl;
         }
 
         function createStars() {
