@@ -184,6 +184,8 @@
             transform: translateZ(0);
             animation: pulse 8s ease-in-out infinite;
             z-index: -10;
+            opacity: 0;
+            transition: opacity 1s ease;
         }
 
         .depth-layer {
@@ -197,6 +199,25 @@
             opacity: 0;
             animation: depthPulse 12s ease-in-out infinite;
             z-index: -9;
+            transition: opacity 1s ease;
+        }
+
+        .dust-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            z-index: -8;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translateZ(0);
+            animation: float var(--duration) infinite ease-in-out var(--delay);
         }
 
         .vignette {
@@ -208,35 +229,6 @@
             box-shadow: inset 0 0 150px 60px rgba(0, 0, 0, 0.8);
             pointer-events: none;
             z-index: -7;
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -5;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) infinite ease-in-out;
-            opacity: 0;
-        }
-
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         @keyframes pulse {
@@ -263,6 +255,84 @@
             }
         }
 
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateZ(var(--z));
+            }
+            50% {
+                transform: translateY(-20px) translateZ(calc(var(--z) + 50px));
+            }
+        }
+
+ 
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -5;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .floating-item {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(90, 68, 255, 0.05);
+            border-radius: 50%;
+            filter: blur(20px);
+            display: none;
+        }
+
+        .floating-item:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation: float-1 15s infinite ease-in-out;
+        }
+
+        .floating-item:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            width: 150px;
+            height: 150px;
+            animation: float-2 20s infinite ease-in-out;
+        }
+
+        .floating-item:nth-child(3) {
+            top: 80%;
+            left: 30%;
+            width: 70px;
+            height: 70px;
+            animation: float-3 12s infinite ease-in-out;
+        }
+
+        @keyframes float-1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        @keyframes float-2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-40px, 40px); }
+        }
+
+        @keyframes float-3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 20px); }
+        }
+
+ 
+        .content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+ 
         nav {
             display: flex;
             justify-content: space-between;
@@ -347,6 +417,7 @@
             align-items: center;
         }
 
+ 
         .hero {
             height: 100vh;
             display: flex;
@@ -362,7 +433,7 @@
             max-width: 800px;
         }
 
-       .hero h1 {
+        .hero h1 {
             font-size: 4.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
@@ -371,6 +442,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
         }
 
         .hero p {
@@ -378,6 +452,9 @@
             margin-bottom: 2.5rem;
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
         }
 
         .highlight {
@@ -390,6 +467,9 @@
             display: flex;
             gap: 1.5rem;
             justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.6s;
         }
 
         .cta-button {
@@ -506,6 +586,7 @@
             box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
         }
 
+
         .tooltip {
             position: absolute;
             background: rgba(10, 10, 20, 0.9);
@@ -592,12 +673,16 @@
         </div>
     </div>
 
- 
     <div id="mainContent" class="blur-content">
         <div class="gradient-bg"></div>
         <div class="depth-layer"></div>
-        <div class="stars" id="stars"></div>
+        <div class="dust-particles" id="particles"></div>
         <div class="vignette"></div>
+        <div class="floating-elements">
+            <div class="floating-item"></div>
+            <div class="floating-item"></div>
+            <div class="floating-item"></div>
+        </div>
 
         <nav id="navbar">
             <a href="/" class="logo" style="text-decoration: none;">
@@ -639,15 +724,15 @@
 
         <section class="hero">
             <div class="hero-content">
-                <h1>Evadion <span class="highlight">Digital v0.1.3</span></h1>
-                <p>✨Evadion
+                <h1 id="mainHeading">Evadion <span class="highlight">Digital v0.1.3</span></h1>
+                <p id="mainSubtitle">✨Evadion
                     <span
                         class="txt-rotate"
                         data-period="2000"
                         data-rotate='[ " is where unblocking starts!", " is where freedom begins!", " is where innovation happens!", " is where access opens up!", " is where the web becomes free!" ]'
                     ></span>
                 </p>
-                <div class="hero-buttons">
+                <div class="hero-buttons" id="mainButtons">
                     <a href="/apk" class="cta-button" id="exploreBtn">
                         Apps
                         <i class="bi bi-grid-3x3-gap-fill"></i>
@@ -663,7 +748,6 @@
     </div>
 
     <script>
-
         const passwordModal = document.getElementById('passwordModal');
         const modalContent = document.getElementById('modalContent');
         const passwordInput = document.getElementById('passwordInput');
@@ -679,24 +763,58 @@
         
         showPasswordModal();
         
-
         function showPasswordModal() {
             passwordModal.style.display = 'flex';
             mainContent.classList.add('blur-content');
             passwordInput.focus();
             isAuthenticated = false;
             resetInactivityTimer();
+            
+
+            document.querySelector('.gradient-bg').style.opacity = '0';
+            document.querySelector('.depth-layer').style.opacity = '0';
+            document.querySelector('.dust-particles').style.opacity = '0';
+            document.querySelector('.floating-elements').style.opacity = '0';
+            
+
+            document.getElementById('mainHeading').style.opacity = '0';
+            document.getElementById('mainHeading').style.transform = 'translateY(30px)';
+            document.getElementById('mainSubtitle').style.opacity = '0';
+            document.getElementById('mainSubtitle').style.transform = 'translateY(30px)';
+            document.getElementById('mainButtons').style.opacity = '0';
+            document.getElementById('mainButtons').style.transform = 'translateY(30px)';
         }
         
-
         function hidePasswordModal() {
             passwordModal.style.display = 'none';
             mainContent.classList.remove('blur-content');
             isAuthenticated = true;
             resetInactivityTimer();
+            
+
+            document.querySelector('.gradient-bg').style.opacity = '1';
+            document.querySelector('.depth-layer').style.opacity = '1';
+            document.querySelector('.dust-particles').style.opacity = '1';
+            document.querySelector('.floating-elements').style.opacity = '1';
+            
+
+            const floatingItems = document.querySelectorAll('.floating-item');
+            floatingItems.forEach(item => {
+                item.style.display = 'block';
+            });
+            
+
+            document.getElementById('mainHeading').style.opacity = '1';
+            document.getElementById('mainHeading').style.transform = 'translateY(0)';
+            document.getElementById('mainSubtitle').style.opacity = '1';
+            document.getElementById('mainSubtitle').style.transform = 'translateY(0)';
+            document.getElementById('mainButtons').style.opacity = '1';
+            document.getElementById('mainButtons').style.transform = 'translateY(0)';
+            
+
+            createParticles();
         }
         
-
         function checkPassword() {
             if (passwordInput.value === CORRECT_PASSWORD) {
                 hidePasswordModal();
@@ -711,7 +829,6 @@
             }
         }
         
-
         function resetInactivityTimer() {
             if (inactivityTimer) {
                 clearTimeout(inactivityTimer);
@@ -724,7 +841,44 @@
             }
         }
         
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            particlesContainer.innerHTML = ''; 
+            
+            const numParticles = 100;
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
 
+
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const z = Math.random() * 100 - 50;
+
+
+                const size = Math.random() * 3 + 1;
+
+
+                const opacity = Math.random() * 0.4 + 0.1;
+
+ 
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 10;
+
+ 
+                particle.style.left = `${x}%`;
+                particle.style.top = `${y}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.opacity = opacity;
+                particle.style.setProperty('--z', `${z}px`);
+                particle.style.setProperty('--duration', `${duration}s`);
+                particle.style.setProperty('--delay', `${delay}s`);
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
         submitPassword.addEventListener('click', checkPassword);
         passwordInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -732,7 +886,6 @@
             }
         });
         
-
         const activityEvents = ['mousemove', 'keydown', 'click', 'scroll'];
         activityEvents.forEach(event => {
             document.addEventListener(event, () => {
@@ -742,14 +895,12 @@
             });
         });
         
-
         document.addEventListener('visibilitychange', function() {
             if (document.visibilityState === 'visible') {
                 showPasswordModal();
             }
         });
         
-
         var TxtRotate = function(el, toRotate, period) {
             this.toRotate = toRotate;
             this.el = el;
@@ -791,9 +942,7 @@
             }, delta);
         };
 
-
         window.onload = function() {
-
             var elements = document.getElementsByClassName('txt-rotate');
             for (var i = 0; i < elements.length; i++) {
                 var toRotate = elements[i].getAttribute('data-rotate');
@@ -803,13 +952,8 @@
                 }
             }
 
-
             updateMetaTags();
             
-
-            createStars();
-            
-
             document.addEventListener('mousemove', parallaxEffect);
             window.addEventListener('scroll', navbarScroll);
             window.addEventListener('deviceorientation', handleDeviceOrientation);
@@ -830,32 +974,9 @@
             document.querySelector('meta[property="twitter:image"]').content = logoUrl;
         }
 
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = 100;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                const size = Math.random() * 3;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = 2 + Math.random() * 3;
-                const delay = Math.random() * 5;
-                
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.setProperty('--duration', `${duration}s`);
-                star.style.animationDelay = `${delay}s`;
-                
-                starsContainer.appendChild(star);
-            }
-        }
-
         function parallaxEffect(e) {
+            if (!isAuthenticated) return;
+            
             const xPos = (window.innerWidth / 2 - e.clientX) / 50;
             const yPos = (window.innerHeight / 2 - e.clientY) / 50;
 
@@ -876,6 +997,8 @@
         }
 
         function handleDeviceOrientation(e) {
+            if (!isAuthenticated) return;
+            
             if (e.beta && e.gamma) {
                 const xPos = e.gamma / 5;
                 const yPos = e.beta / 5;
