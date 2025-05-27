@@ -24,7 +24,6 @@
 
 ## 🚀 About Us
 
-@everyone 
 # **Welcome to Evadion** 
 ✨ Evadion is where unblocking starts!
 ## **🚀 What We Offer**
@@ -40,4 +39,5 @@
 > *  💎 No Lag, No Ads
 > *  🚀  Offical luch is comming soon...
 > * 🔗  JOIN OUR SERVER
+>   
 > https://discord.com/invite/BJwdeHAsuR
