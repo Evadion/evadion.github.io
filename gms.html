@@ -374,6 +374,10 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(90, 68, 255, 0.2);
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .game-card:hover {
@@ -392,10 +396,12 @@
             height: 2.5rem;
         }
 
-        .game-icon img {
-            max-width: 100%;
-            max-height: 2.5rem;
+        .game-icon-img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
+            max-height: 60px;
+            margin-bottom: 1rem;
         }
 
         .game-name {
@@ -515,9 +521,7 @@
                 </div>
                 
                 <div class="game-card" onclick="window.location.href='/gms/geodash'">
-                    <div class="game-icon">
-                        <img src="/logo/gms/geodash.webp" alt="Geometry Dash">
-                    </div>
+                    <img src="/logo/gms/geodash.webp" alt="Geometry Dash" class="game-icon-img">
                     <div class="game-name">Geometry Dash</div>
                 </div>
                 
