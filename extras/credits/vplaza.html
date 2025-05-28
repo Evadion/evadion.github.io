@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPlaza | The Ultimate Unblocking Suite</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #0a0a14;
+            color: #fff;
+            position: relative;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at 50% 70%,
+                rgba(90, 68, 255, 0.6) 0%,
+                rgba(40, 30, 120, 0.3) 30%,
+                rgba(15, 15, 40, 0.1) 60%,
+                rgba(10, 10, 20, 0) 80%
+            );
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            animation: pulse 8s ease-in-out infinite;
+            z-index: -10;
+            top: 0;
+            left: 0;
+        }
+
+        .depth-layer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 30% 40%, rgba(80, 60, 255, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(100, 80, 255, 0.08) 0%, transparent 40%);
+            filter: blur(40px);
+            opacity: 0;
+            animation: depthPulse 12s ease-in-out infinite;
+            z-index: -9;
+            top: 0;
+            left: 0;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 150px 60px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            z-index: -7;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+
+     
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            background-color: rgba(15, 15, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(90, 68, 255, 0.2);
+        }
+
+        .nav-scrolled {
+            padding: 1rem 8%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            background-color: rgba(15, 15, 40, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #5a44ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 40px;
+            margin-right: 0.75rem;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #5a44ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #5a44ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #5a44ff, #7a64ff);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.6rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .cta-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(3px);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.8s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(90, 68, 255, 0.3);
+        }
+
+        .cta-button:hover::before {
+            transform: scale(15);
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(90, 68, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: #5a44ff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(10, 10, 20, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(90, 68, 255, 0.3);
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background: rgba(10, 10, 20, 0.9);
+            border-top: 1px solid rgba(90, 68, 255, 0.3);
+            border-left: 1px solid rgba(90, 68, 255, 0.3);
+        }
+
+        .has-tooltip {
+            position: relative;
+        }
+
+        .has-tooltip:hover .tooltip {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+            bottom: -45px;
+        }
+
+ 
+        .back-button {
+            position: fixed;
+            top: 90px;
+            left: 8%;
+            z-index: 90;
+            background: rgba(90, 68, 255, 0.2);
+            border: 1px solid rgba(90, 68, 255, 0.5);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: rgba(90, 68, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+ 
+        .vplaza-container {
+            max-width: 800px;
+            margin: 180px auto 60px;
+            background: rgba(30, 30, 45, 0.8);
+            border-radius: 15px;
+            border-left: 5px solid #f05658;
+            box-shadow: 0 10px 30px rgba(240, 86, 88, 0.2);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .vplaza-header {
+            background: linear-gradient(135deg, #f05658, #ff8e8e);
+            padding: 25px;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .vplaza-content {
+            padding: 30px;
+            line-height: 1.8;
+        }
+
+        .vplaza-intro {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .vplaza-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(40, 40, 60, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .vplaza-feature:hover {
+            background: rgba(240, 86, 88, 0.2);
+            transform: translateX(5px);
+        }
+
+        .feature-emoji {
+            font-size: 1.8rem;
+            margin-right: 15px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            color: #f05658;
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(240, 86, 88, 0.3);
+            margin: 25px 0;
+        }
+
+        .discord-cta {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(240, 86, 88, 0.3);
+            border-radius: 10px;
+        }
+
+        .discord-btn {
+            display: inline-block;
+            background: #5865F2;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+                filter: blur(30px) brightness(0.8);
+                transform: translateZ(-20px) scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(20px) brightness(1.2);
+                transform: translateZ(0) scale(1);
+            }
+        }
+
+        @keyframes depthPulse {
+            0%, 100% { opacity: 0.3; transform: translateZ(-50px); }
+            50% { opacity: 0.8; transform: translateZ(30px); }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .vplaza-container {
+                margin-top: 140px;
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+            
+            .back-button {
+                top: 80px;
+                left: 5%;
+            }
+            
+            .vplaza-header {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="depth-layer"></div>
+    <div class="stars" id="stars"></div>
+    <div class="vignette"></div>
+
+ 
+    <nav id="navbar">
+        <a href="/" class="logo" style="text-decoration: none;">
+            <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
+        </a>
+        <div class="nav-links">
+            <a class="nav-link has-tooltip" href="/engine">
+                PROXY
+                <span class="tooltip">Search engine</span>
+            </a>
+            <a href="/movies" class="nav-link has-tooltip">
+                TV
+                <span class="tooltip">Movies + Shows</span>
+            </a>
+            <a class="nav-link has-tooltip" href="/ai">
+                AI
+                <span class="tooltip">AI</span>
+            </a>
+            <a class="nav-link has-tooltip active" href="/extras">
+                Extras
+                <span class="tooltip">Extras</span>
+            </a>
+        </div>
+        <div class="nav-buttons">
+            <a href="https://github.com/Evadion/evadion.github.io" class="social-link has-tooltip" target="_blank">
+                <i class="bi bi-github"></i>
+                <span class="tooltip">GitHub</span>
+            </a>
+            <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
+                <i class="bi bi-discord"></i>
+                <span class="tooltip">Discord</span>
+            </a>
+            <a href="mailto:contact.mkykg@gmail.com" class="cta-button">
+                Email
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </nav>
+
+ 
+    <a href="/extras" class="back-button">
+        <i class="bi bi-arrow-left"></i> Go Back
+    </a>
+
+ 
+    <div class="vplaza-container">
+        <div class="vplaza-header">
+            ❤️‍🔥 Welcome to VPlaza ❤️‍🔥
+        </div>
+        
+        <div class="vplaza-content">
+            <div class="vplaza-intro">
+                <p>We thank you for using <strong>Vplaza</strong>. ❤️‍🔥</p>
+                <p><strong>What is Vplaza?</strong> 💭 <strong>Try it before saying no!!!</strong> 🙂‍↔️</p>
+                <p>Before saying no, let's go over what we have! 🗃️</p>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">🔍</div>
+                <div class="feature-text">
+                    <h3>Clean Opera GX Type Proxy</h3>
+                    <p>A sleek, fast proxy with Opera GX aesthetics and performance</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">🎮</div>
+                <div class="feature-text">
+                    <h3>Massive Games Collection</h3>
+                    <p>Clean games page with over 100 games, plus a proxied games page with 400+ titles</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">👁‍🗨</div>
+                <div class="feature-text">
+                    <h3>Interactive AI Assistant</h3>
+                    <p>Message or even talk to our advanced AI that understands and responds naturally</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">🌤️</div>
+                <div class="feature-text">
+                    <h3>Weather Forecasts</h3>
+                    <p>Clean weather site with perfect and up-to-date weather information</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">📱</div>
+                <div class="feature-text">
+                    <h3>Popular Apps</h3>
+                    <p>Clean apps page with 8 of the most popular applications</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">🎙️</div>
+                <div class="feature-text">
+                    <h3>Music & YouTube</h3>
+                    <p>Music site with every song possible, doubling as a YouTube unblocker</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">🗨️</div>
+                <div class="feature-text">
+                    <h3>Chat Platform</h3>
+                    <p>Chat page with both public and private modes for all your conversations</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">👁️</div>
+                <div class="feature-text">
+                    <h3>Live TV & Movies</h3>
+                    <p>Live TV platform with movies, TV shows, and more entertainment</p>
+                </div>
+            </div>
+            
+            <div class="vplaza-feature">
+                <div class="feature-emoji">📺</div>
+                <div class="feature-text">
+                    <h3>Streaming Service</h3>
+                    <p>Watch all your favorite TV shows, movies and more with our streaming service</p>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="discord-cta">
+                <h3>Ready to Explore VPlaza?</h3>
+                <p>Join our Discord community for updates, support, and exclusive features</p>
+                <a href="https://discord.gg/s5b2Gd88K7" class="discord-btn" target="_blank">
+                    <i class="bi bi-discord"></i> Join Our Discord
+                </a>
+                <p style="margin-top: 15px;">Or visit our site: <a href="http://vplaza.org/" style="color: #f05658;">here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = 2 + Math.random() * 3;
+                const delay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+ 
+        function navbarScroll() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        }
+
+ 
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            window.addEventListener('scroll', navbarScroll);
+        });
+    </script>
+</body>
+</html>
