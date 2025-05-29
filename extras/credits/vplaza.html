@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPlaza | The Ultimate Unblocking Suite</title>
+    <title>VPlaza | Evadion</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         * {
@@ -458,7 +458,6 @@
     <div class="stars" id="stars"></div>
     <div class="vignette"></div>
 
- 
     <nav id="navbar">
         <a href="/" class="logo" style="text-decoration: none;">
             <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
@@ -498,11 +497,10 @@
     </nav>
 
  
-    <a href="/extras" class="back-button">
+    <button class="back-button" onclick="goBack()">
         <i class="bi bi-arrow-left"></i> Go Back
-    </a>
+    </button>
 
- 
     <div class="vplaza-container">
         <div class="vplaza-header">
             ❤️‍🔥 Welcome to VPlaza ❤️‍🔥
@@ -601,7 +599,6 @@
     </div>
 
     <script>
-
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 100;
@@ -627,7 +624,6 @@
             }
         }
 
- 
         function navbarScroll() {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 100) {
@@ -638,6 +634,10 @@
         }
 
  
+        function goBack() {
+            window.history.back();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
             window.addEventListener('scroll', navbarScroll);
