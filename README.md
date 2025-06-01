@@ -4,8 +4,8 @@
 ✨Evadion is where unblocking starts.
 ## Contributers
 
-- [@mkykg](https://www.github.com/mkykg) • Only developer of Evadion
-
+- [@mkykg](https://www.github.com/mkykg) • The developer of Evadion
+- [@xXmizzeryXx](https://www.github.com/xXmizzeryXx) • Added Games
 
 
 
