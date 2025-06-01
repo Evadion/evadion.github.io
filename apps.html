@@ -13,7 +13,7 @@
     <meta property="og:image:height" content="1200" />
     <meta property="og:description" content="✨Evadion is where unblocking starts!" />
     <meta name="theme-color" content="#5a44ff">
-    <meta name="orbit:card" content="/logo/evadion.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:image" content="https://evadion.github.io/logo/evadion.jpeg">
     
     <link rel="icon" href="/logo/evadion.jpeg" type="image/jpeg">
@@ -403,6 +403,45 @@
             background: rgba(90, 68, 255, 0.3);
         }
 
+ 
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a14;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .loading-text {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(90, 68, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #5a44ff;
+            animation: spin 1s linear infinite;
+        }
+
         @keyframes twinkle {
             0%, 100% { opacity: 0; transform: scale(0.5); }
             50% { opacity: 1; transform: scale(1); }
@@ -426,6 +465,10 @@
             50% { opacity: 0.8; transform: translateZ(30px); }
         }
 
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         @media screen and (max-width: 768px) {
             .apps-title {
                 font-size: 2rem;
@@ -446,6 +489,13 @@
     </style>
 </head>
 <body>
+
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <img src="/logo/evadion.jpeg" alt="Evadion Logo" class="loading-logo">
+        <div class="loading-text">Loading Evadion...</div>
+    </div>
+
     <div class="gradient-bg"></div>
     <div class="depth-layer"></div>
     <div class="stars" id="stars"></div>
@@ -588,7 +638,7 @@
     </div>
 
     <script>
- 
+
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 100;
@@ -614,7 +664,7 @@
             }
         }
 
- 
+
         function parallaxEffect(e) {
             const xPos = (window.innerWidth / 2 - e.clientX) / 50;
             const yPos = (window.innerHeight / 2 - e.clientY) / 50;
@@ -646,7 +696,7 @@
                 
                 appCards.forEach(card => {
                     const appName = card.querySelector('.app-name').textContent.toLowerCase();
-                    if (appName.includes(searchTerm)) {
+                    if (appName.includes(searchTerm) {
                         card.style.display = 'block';
                     } else {
                         card.style.display = 'none';
@@ -663,15 +713,37 @@
             setupSearch();
 
  
-            window.addEventListener('deviceorientation', function(e) {
-                if (e.beta && e.gamma) {
-                    parallaxEffect({
-                        clientX: window.innerWidth / 2 - (e.gamma * 5),
-                        clientY: window.innerHeight / 2 - (e.beta * 5)
-                    });
-                }
-            });
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1500);
+
+
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', function(e) {
+                    if (e.beta && e.gamma) {
+                        parallaxEffect({
+                            clientX: window.innerWidth / 2 - (e.gamma * 5),
+                            clientY: window.innerHeight / 2 - (e.beta * 5)
+                        });
+                    }
+                });
+            }
         });
+
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful');
+                }).catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
