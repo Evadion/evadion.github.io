@@ -19,7 +19,7 @@
 
 
 
-![Logo](https://evadion.github.io/logo/LOGO-for-Pr0ton-modified.png)
+![Logo](https://evadion.github.io/logo/evadion.jpeg)
 
 
 ## 🚀 About Us
